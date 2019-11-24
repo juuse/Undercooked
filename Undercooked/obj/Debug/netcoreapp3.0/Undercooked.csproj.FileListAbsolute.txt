@@ -1,0 +1,12 @@
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.exe
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.AssemblyInfoInputs.cache
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.AssemblyInfo.cs
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.deps.json
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.runtimeconfig.json
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.runtimeconfig.dev.json
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.dll
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\Undercooked.pdb
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\NDesk.Options.dll
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.csproj.CopyComplete
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.dll
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.pdb

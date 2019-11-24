@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jwen8\\source\\repos\\juuse\\Undercooked\\Undercooked\\Undercooked.csproj": {}
+    "C:\\Users\\Roxie\\Source\\Repos\\Undercooked\\Undercooked\\Undercooked.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jwen8\\source\\repos\\juuse\\Undercooked\\Undercooked\\Undercooked.csproj": {
+    "C:\\Users\\Roxie\\Source\\Repos\\Undercooked\\Undercooked\\Undercooked.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jwen8\\source\\repos\\juuse\\Undercooked\\Undercooked\\Undercooked.csproj",
+        "projectUniqueName": "C:\\Users\\Roxie\\Source\\Repos\\Undercooked\\Undercooked\\Undercooked.csproj",
         "projectName": "Undercooked",
-        "projectPath": "C:\\Users\\jwen8\\source\\repos\\juuse\\Undercooked\\Undercooked\\Undercooked.csproj",
-        "packagesPath": "C:\\Users\\jwen8\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jwen8\\source\\repos\\juuse\\Undercooked\\Undercooked\\obj\\",
+        "projectPath": "C:\\Users\\Roxie\\Source\\Repos\\Undercooked\\Undercooked\\Undercooked.csproj",
+        "packagesPath": "C:\\Users\\Roxie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Roxie\\Source\\Repos\\Undercooked\\Undercooked\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jwen8\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Roxie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,12 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "NDesk.Options": {
+              "target": "Package",
+              "version": "[0.2.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
