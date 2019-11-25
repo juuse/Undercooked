@@ -10,3 +10,4 @@ C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\bin\Debug\netcoreapp3.0\NDes
 C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.csproj.CopyComplete
 C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.dll
 C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.pdb
+C:\Users\Roxie\Source\Repos\Undercooked\Undercooked\obj\Debug\netcoreapp3.0\Undercooked.csprojAssemblyReference.cache
