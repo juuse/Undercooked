@@ -59,6 +59,8 @@ namespace Undercooked
                     return;
                 }
 
+                DatabaseConnection();
+
                 switch (action)
                 {
                     case "restock":
@@ -117,7 +119,7 @@ namespace Undercooked
         {
             // https://www.npgsql.org/doc/index.html
 
-            var connString = "Host=localhost;Username=EECS341;Password=123456;Database=";
+            var connString = "Host=localhost;Username=EECS341;Password=123456;Database=localhost";
 
             await using var conn = new NpgsqlConnection(connString);
             await conn.OpenAsync();
