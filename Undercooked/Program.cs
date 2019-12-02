@@ -62,6 +62,8 @@ namespace Undercooked
 
                 DatabaseConnection();
 
+                Console.WriteLine("Outside");
+
                 switch (action)
                 {
                     case "restock":
@@ -116,30 +118,28 @@ namespace Undercooked
 
         }
 
-        private static async void DatabaseConnection()
+        private static void DatabaseConnection()
         {
-            // https://www.npgsql.org/doc/index.html
+            var connString = "Host=localhost;Username=postgres;Password=123456;Database=postgres";
 
-            var connString = "Host=localhost;port=;Username=EECS341;Password=123456;Database=localhost";
+            Console.WriteLine("Before");
 
-            await using var conn = new NpgsqlConnection(connString);
-            await conn.OpenAsync();
+            var conn = new NpgsqlConnection(connString);
+            conn.Open();
 
-            Console.WriteLine("hello");
-            /*
-            // Insert some data
-            await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
-            {
-                cmd.Parameters.AddWithValue("p", "Hello world");
-                await cmd.ExecuteNonQueryAsync();
+            NpgsqlDataReader reader = null;
+            try {
+                var cmd = new NpgsqlCommand("SELECT * FROM inventory", conn);
+                reader = cmd.ExecuteReader();
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
             }
-            */
+            
+            Console.WriteLine("Hello");
+            while (reader.Read())
+                Console.Write("{0}\t{1} \n", reader[0], reader[1]);
 
-            // Retrieve all rows
-            await using (var cmd = new NpgsqlCommand("SELECT * FROM Inventory", conn))
-            await using (var reader = await cmd.ExecuteReaderAsync())
-                while (await reader.ReadAsync())
-                    Console.WriteLine(reader.GetString(0));
+            conn.Close();
         }
 
         private static void ShowHelp(OptionSet p)
