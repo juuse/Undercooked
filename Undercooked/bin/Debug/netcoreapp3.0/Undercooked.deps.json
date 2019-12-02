@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.0": {
       "Undercooked/1.0.0": {
         "dependencies": {
-          "NDesk.Options": "0.2.1"
+          "NDesk.Options": "0.2.1",
+          "Npgsql": "4.1.2"
         },
         "runtime": {
           "Undercooked.dll": {}
@@ -21,7 +22,19 @@
             "fileVersion": "0.2.1.0"
           }
         }
-      }
+      },
+      "Npgsql/4.1.2": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.6.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Npgsql.dll": {
+            "assemblyVersion": "4.1.2.0",
+            "fileVersion": "4.1.2.0"
+          }
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.6.0": {}
     }
   },
   "libraries": {
@@ -36,6 +49,20 @@
       "sha512": "sha512-1bkSjNET5wxY+kZfTVdstkcDYF98mEbxWrG5FxJG5MTjQ0d9E2ezNfK/InvsVB50P0TiXO2ovD/SB/57EH6Zmw==",
       "path": "ndesk.options/0.2.1",
       "hashPath": "ndesk.options.0.2.1.nupkg.sha512"
+    },
+    "Npgsql/4.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-41Nht/GnC/cRCA/2T9vq5NAv8m24RDp3paRhJCMc8ipOURH6zDZAQFe8mcLq1hAgMkK1Wy8VoRYL/8Op+L6OCg==",
+      "path": "npgsql/4.1.2",
+      "hashPath": "npgsql.4.1.2.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HxozeSlipUK7dAroTYwIcGwKDeOVpQnJlpVaOkBz7CM4TsE5b/tKlQBZecTjh6FzcSbxndYaxxpsBMz+wMJeyw==",
+      "path": "system.runtime.compilerservices.unsafe/4.6.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
     }
   }
 }

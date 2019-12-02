@@ -116,6 +116,27 @@ namespace Undercooked
         private static void DatabaseConnection()
         {
             // https://www.npgsql.org/doc/index.html
+
+            var connString = "Host=localhost;Username=EECS341;Password=123456;Database=";
+
+            await using var conn = new NpgsqlConnection(connString);
+            await conn.OpenAsync();
+
+            Console.WriteLine("hello");
+            /*
+            // Insert some data
+            await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
+            {
+                cmd.Parameters.AddWithValue("p", "Hello world");
+                await cmd.ExecuteNonQueryAsync();
+            }
+            */
+
+            // Retrieve all rows
+            await using (var cmd = new NpgsqlCommand("SELECT * FROM Inventory", conn))
+            await using (var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                    Console.WriteLine(reader.GetString(0));
         }
 
         private static void ShowHelp(OptionSet p)
