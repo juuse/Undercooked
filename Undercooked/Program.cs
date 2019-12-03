@@ -9,6 +9,8 @@ namespace Undercooked
     /// </summary>
     class Program
     {
+        static NpgsqlConnection conn;
+
         /// <summary>
         /// Parses the input arguments
         /// </summary>
@@ -62,54 +64,74 @@ namespace Undercooked
 
                 DatabaseConnection();
 
-                Console.WriteLine("Outside");
-
                 switch (action)
                 {
                     case "restock":
+                        Console.WriteLine("Restocking...");
                         Restock(quantity);
+                        Console.WriteLine("Finished Restocking.");
                         break;
 
                     case "dispose":
+                        Console.WriteLine("Disposing...");
                         Dispose();
+                        Console.WriteLine("Finished Disposing.");
                         break;
 
                     case "prepare":
+                        Console.WriteLine("Preparing...");
                         Prepare(dish_name, quantity);
+                        Console.WriteLine("Finished Preparing.");
                         break;
 
                     case "total-expense":
+                        Console.WriteLine("Calculating Total Expense...");
                         Total_Expense();
+                        Console.WriteLine("Finished Calculating Total Expense.");
                         break;
 
                     case "total-revenue":
+                        Console.WriteLine("Calculating Total Revenue...");
                         Total_Revenue();
+                        Console.WriteLine("Finished Calculating Total Revenue.");
                         break;
 
                     case "profit":
+                        Console.WriteLine("Calculating Profit...");
                         Profit();
+                        Console.WriteLine("Finished Calculating Profit.");
                         break;
 
                     case "largest-expense":
+                        Console.WriteLine("Calculating Largest Expense...");
                         Largest_Expense(top);
+                        Console.WriteLine("Finished Calculating Largest Expense.");
                         break;
 
                     case "largest-revenue":
+                        Console.WriteLine("Calculating Largest Revenue...");
                         Largest_Revenue(top);
+                        Console.WriteLine("Finished Calculating Largest Revenue.");
                         break;
 
                     case "reserve":
+                        Console.WriteLine("Making A Reservation...");
                         Reserve(party_size, date, time, email, phone);
+                        Console.WriteLine("Finished Making A Reservation.");
                         break;
 
                     case "receipt":
+                        Console.WriteLine("Making A Receipt...");
                         Receipt(res_id, dish_name, quantity);
+                        Console.WriteLine("Finished Making A Receipt...");
                         break;
 
                     default:
                         Console.WriteLine("Please enter a valid action. Type Undercooked -h for the list of actions.");
                         break;
                 }
+
+                conn.Close();
             } 
             catch (Exception e)
             {
@@ -122,24 +144,8 @@ namespace Undercooked
         {
             var connString = "Host=localhost;Username=postgres;Password=123456;Database=postgres";
 
-            Console.WriteLine("Before");
-
-            var conn = new NpgsqlConnection(connString);
+            conn = new NpgsqlConnection(connString);
             conn.Open();
-
-            NpgsqlDataReader reader = null;
-            try {
-                var cmd = new NpgsqlCommand("SELECT * FROM inventory", conn);
-                reader = cmd.ExecuteReader();
-            } catch (Exception e) {
-                Console.WriteLine(e.ToString());
-            }
-            
-            Console.WriteLine("Hello");
-            while (reader.Read())
-                Console.Write("{0}\t{1} \n", reader[0], reader[1]);
-
-            conn.Close();
         }
 
         private static void ShowHelp(OptionSet p)
@@ -155,7 +161,15 @@ namespace Undercooked
 
         private static void Dispose()
         {
-
+            //try
+            //{
+                var cmd = new NpgsqlCommand("UPDATE Inventory SET quantity = 0 WHERE expiration_date <= current_date", conn);
+                cmd.ExecuteNonQuery();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.ToString());
+            //}
         }
 
         private static void Prepare(string dish_name, int quantity)
