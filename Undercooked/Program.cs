@@ -28,19 +28,22 @@ namespace Undercooked
             string email = null;
             string phone = null;
             int res_id = -1;
+            double n = 5;
 
             var p = new OptionSet() {
                 { "h|?|help", "Display help", v => help = v != null },
                 { "restock", "Restock the ingredients with quantity below input quantity", v => action = "restock" },
                 { "dispose", "Dispose the ingredients with expiration date earlier than current date", v => action = "dispose" },
                 { "prepare", "Prepare the dishes specified by dish-name for the specified the quantity", v => action = "prepare" },
-                { "total-expense", "Get the total expense for the whole term", v => action = "total_expense" },
+                { "total-expense", "Get the total expense for the whole term", v => action = "total-expense" },
                 { "total-revenue", "Get the total revenue for the whole term", v => action = "total-revenue" },
                 { "profit", "Get the total profit (expense - revenue) for the whole term", v => action = "profit" },
                 { "largest-expense", "Get the top n largest expense for the whole term", v => action = "largest-expense" },
                 { "largest-revenue", "Get the top n largest revenue for the whole term", v => action = "largest-revenue" },
                 { "reserve", "Make a reservation with the given party size, date, time, email, and phone number. Prints out reservation id", v => action = "reserve" },
                 { "receipt", "Record the receipt made with reservation id, dish name, quantity", v => action = "receipt" },
+                { "find-n", "Find all the dishes with all ingredients more than n dollars", v => action = "find-n" },
+                { "find-n-2", "Find all the dishes with only 1 ingredient more than n dollars", v => action = "find-n" },
                 { "dish-name=", "Specify the dish name", v => dish_name = v},
                 { "quantity=", "Specify the quantity. Default is 1", v => quantity = int.Parse(v) },
                 { "top=", "Specify the top n. Default is 1", v => top = int.Parse(v) },
@@ -50,6 +53,7 @@ namespace Undercooked
                 { "email=", "Specify the email for the reservation", v => email = v },
                 { "phone-number=", "Specify the phone number for the reservation", v => phone = v },
                 { "reservation-id=", "Specify the reservation id for the receipt", v => res_id = int.Parse(v) },
+                { "n=", "Specify the ingredient price to check for. Default is 5", v => n = double.Parse(v) },
             };
 
             try
@@ -126,6 +130,18 @@ namespace Undercooked
                         Console.WriteLine("Finished Making A Receipt...");
                         break;
 
+                    case "find-n":
+                        Console.WriteLine("Finding Dishes With All Ingredients More Than " + n + " Dollars...");
+                        Find_n(n);
+                        Console.WriteLine("Finished Finding Dishes With All Ingredients More Than " + n + " Dollars.");
+                        break;
+
+                    case "find-n-2":
+                        Console.WriteLine("Finding Dishes With Only 1 Ingredient More Than " + n + " Dollars...");
+                        Find_n_2(n);
+                        Console.WriteLine("Finished Finding Dishes With Only 1 Ingredient More Than " + n + " Dollars.");
+                        break;
+
                     default:
                         Console.WriteLine("Please enter a valid action. Type Undercooked -h for the list of actions.");
                         break;
@@ -161,15 +177,8 @@ namespace Undercooked
 
         private static void Dispose()
         {
-            //try
-            //{
-                var cmd = new NpgsqlCommand("UPDATE Inventory SET quantity = 0 WHERE expiration_date <= current_date", conn);
-                cmd.ExecuteNonQuery();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.ToString());
-            //}
+            var cmd = new NpgsqlCommand("UPDATE Inventory SET quantity = 0 WHERE expiration_date <= current_date", conn);
+            cmd.ExecuteNonQuery();
         }
 
         private static void Prepare(string dish_name, int quantity)
@@ -179,27 +188,47 @@ namespace Undercooked
 
         private static void Total_Expense()
         {
+            var cmd = new NpgsqlCommand("SELECT SUM(Cost) FROM Expenses", conn);
+            var reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+                Console.Write("{0} \n", reader[0]);
         }
 
         private static void Total_Revenue()
         {
+            var cmd = new NpgsqlCommand("SELECT SUM(Amount) FROM Revenue", conn);
+            var reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+                Console.Write("{0} \n", reader[0]);
         }
 
         private static void Profit()
         {
+            var cmd = new NpgsqlCommand("SELECT (SELECT SUM(Amount) FROM Revenue) - (SELECT SUM(Cost) FROM Expenses)", conn);
+            var reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+                Console.Write("{0} \n", reader[0]);
         }
 
         private static void Largest_Expense(int top)
         {
+            var cmd = new NpgsqlCommand("SELECT EID, EName, MAX(Cost) FROM Expenses GROUP BY EID, EName LIMIT " + top, conn);
+            var reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+                Console.Write("{0}\t{1}\t{2} \n", reader[0], reader[1], reader[2]);
         }
 
         private static void Largest_Revenue(int top)
         {
+            var cmd = new NpgsqlCommand("SELECT RID, RName, MAX(amount) FROM Revenue GROUP BY RID, RName LIMIT " + top, conn);
+            var reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+                Console.Write("{0}\t{1}\t{2} \n", reader[0], reader[1], reader[2]);
         }
 
         private static void Reserve(int party_size, string date, int time, string email, string phone)
@@ -210,6 +239,26 @@ namespace Undercooked
         private static void Receipt(int res_id, string dish_name, int quantity)
         {
 
+        }
+
+        
+
+        private static void Find_n(double n)
+        {
+            var cmd = new NpgsqlCommand("SELECT DishName FROM Menu as m WHERE NOT EXISTS(SELECT DISTINCT(m2.DishID) FROM Menu as m2, Dishes as d, Ingredients as i WHERE m.DishID= m2.DishID AND m.DishID= d.DishID AND i.IngredientID= d.IngredientID AND i.cost <= " + n  + ")", conn);
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+                Console.Write("{0} \n", reader[0]);
+        }
+
+        private static void Find_n_2(double n)
+        {
+            var cmd = new NpgsqlCommand("", conn);
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+                Console.Write("{0} \n", reader[0]);
         }
     }
 }
